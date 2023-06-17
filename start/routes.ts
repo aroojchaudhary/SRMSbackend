@@ -24,7 +24,7 @@ import Route from '@ioc:Adonis/Core/Route'
 import './routes/users.ts'
 
 Route.get('/', async () => {
-  return { hello: 'world' }
+  return "Welcome to AdonisJS Framework (*,*)"
 })
 
 // check db connection
