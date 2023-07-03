@@ -1,19 +1,23 @@
 import { DateTime } from 'luxon'
-import { BaseModel, HasMany, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
-import Attempt from './Attempt'
-import Subject from './Subject'
+import { BaseModel, 
+  // HasMany, 
+  column, 
+  // hasMany 
+} from '@ioc:Adonis/Lucid/Orm'
+// import Attempt from './Attempt'
+// import Subject from './Subject'
 
 export default class Assessment extends BaseModel {
 
-  @hasMany(()=>Attempt,{
-    foreignKey:'assessmentId'
-  })
-  public attempts:HasMany<typeof Attempt>
+  // @hasMany(()=>Attempt,{
+  //   foreignKey:'assessmentId'
+  // })
+  // public attempts:HasMany<typeof Attempt>
 
-  @hasMany(()=>Subject, {
-    foreignKey:'assessmentId'
-  })
-  public subjects:HasMany <typeof Subject>
+  // @hasMany(()=>Subject, {
+  //   foreignKey:'assessmentId'
+  // })
+  // public subjects:HasMany <typeof Subject>
 
   @column({ isPrimary: true })
   public id: number
