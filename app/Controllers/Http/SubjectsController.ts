@@ -16,7 +16,7 @@ export default class SubjectsController {
             return response.send(data)
         }
         catch (error) {
-            return response.send(error)
+            return response.status(400).send(error);
         }
     }
 
@@ -27,11 +27,11 @@ export default class SubjectsController {
             return response.send(data);
         }
         catch (error) {
-            return response.send(error)
+            return response.status(400).send(error);
         }
     }
 
-    //Update specific student by id
+    //Update specific subject by id
     public async update({ params, request, response }: HttpContextContract) {
         try {
             await request.validate({ schema: UpdateValidations });
@@ -44,7 +44,7 @@ export default class SubjectsController {
             await updatedSubject.save();
             return response.send(updatedSubject);
         } catch (error) {
-            return response.send(error);
+            return response.status(400).send(error);;
         }
     }
 
@@ -56,7 +56,7 @@ export default class SubjectsController {
             return response.send("Deleted successfully");
         }
         catch (error) {
-            return response.send(error)
+            return response.status(400).send(error);
         }
     }
 

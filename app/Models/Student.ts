@@ -3,32 +3,33 @@ import Hash from "@ioc:Adonis/Core/Hash";
 import {
   BaseModel,
   beforeSave,
-  // HasMany,
+  HasMany,
   column,
-  // hasMany,
+  hasMany,
   manyToMany,
   ManyToMany,
 } from "@ioc:Adonis/Lucid/Orm";
-// import Attempt from "./Attempt";
 import Subject from "./Subject";
+import Assessment from "./Assessment";
 
-export default class User extends BaseModel {
+export default class Student extends BaseModel {
 
   //Many to Many relationship between students and subjects table
   @manyToMany(() => Subject, {
-    pivotTable: 'student_subjects',
-    pivotColumns: ['username', 'subject'],
-    pivotTimestamps: true,
+    localKey:'id',
     pivotForeignKey: 'user_id',
+    relatedKey: 'id',
     pivotRelatedForeignKey: 'subject_id',
+    pivotTable: 'student_subjects',
+    pivotTimestamps: true
   })
   public subjects: ManyToMany<typeof Subject>
 
-  //One to Many relationship between students and attempts table
-  // @hasMany(() => Attempt, {
-  //   foreignKey: "studentId",
-  // })
-  // public attempts: HasMany<typeof Attempt>;
+  //One to Many relationship between students and assessments table
+  @hasMany(() => Assessment, {
+    foreignKey: "studentId",
+  })
+  public assessments: HasMany<typeof Assessment>;
 
   @column({ isPrimary: true })
   public id: number;
@@ -46,19 +47,13 @@ export default class User extends BaseModel {
   public password: string;
 
   @column()
-  public phone_number: string;
-
-  @column()
-  public role:string;
+  public phoneNumber: string;
 
   @column()
   public batch: string;
 
   @column()
-  public subject:string
-
-  @column()
-  public class:string
+  public className:string
   
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;
@@ -67,9 +62,9 @@ export default class User extends BaseModel {
   public updatedAt: DateTime;
 
   @beforeSave()
-  public static async hashPassword(users: User) {
-    if (users.$dirty.password) {
-      users.password = await Hash.make(users.password);
+  public static async hashPassword(students: Student) {
+    if (students.$dirty.password) {
+      students.password = await Hash.make(students.password);
     }
   }
 }
